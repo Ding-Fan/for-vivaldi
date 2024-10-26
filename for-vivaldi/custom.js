@@ -1,28 +1,25 @@
 window.onload = function () {
   // Wait for the UI to load
-  setTimeout(() => {
+  const observer = new MutationObserver(() => {
     // Select the Workspaces button toolbar
-    var workspacesToolbar = document.querySelector('.tabbar-workspace-button');
+    let workspacesToolbar = document.querySelector(".tabbar-workspace-button");
 
     if (workspacesToolbar) {
       // Create a new button toolbar container
-      var buttonToolbar = document.createElement('div');
-      buttonToolbar.className = 'button-toolbar toggle-expandable-button';
-
-      // Set custom width to make it a short button
-      buttonToolbar.style.width = ''; // Adjust width as needed
+      let buttonToolbar = document.createElement("div");
+      buttonToolbar.className = "button-toolbar toggle-expandable-button";
 
       // Create the button element
-      var button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'ToolbarButton-Button';
-      button.title = 'Toggle Tab Bar Expansion';
-      button.setAttribute('aria-label', 'Toggle Tab Bar Expansion');
-      button.setAttribute('tabindex', '-1');
+      let button = document.createElement("button");
+      button.type = "button";
+      button.className = "ToolbarButton-Button";
+      button.title = "Toggle Tab Bar Expansion";
+      button.setAttribute("aria-label", "Toggle Tab Bar Expansion");
+      button.setAttribute("tabindex", "-1");
 
       // Create the icon for the button (customize the SVG as needed)
-      var iconSpan = document.createElement('span');
-      iconSpan.className = 'button-icon';
+      var iconSpan = document.createElement("span");
+      iconSpan.className = "button-icon";
       iconSpan.innerHTML = `
         <svg width="16" height="16" viewBox="0 0 16 16">
           <!-- Example icon: a double arrow -->
@@ -37,17 +34,25 @@ window.onload = function () {
       buttonToolbar.appendChild(button);
 
       // Insert the new button toolbar before the Workspaces toolbar
-      workspacesToolbar.parentNode.insertBefore(buttonToolbar, workspacesToolbar);
+      workspacesToolbar.parentNode.insertBefore(
+        buttonToolbar,
+        workspacesToolbar
+      );
 
       // Add event listener to the button to toggle the 'expandable' class
-      var tabStrip = document.querySelector('.tabs-left #tabs-tabbar-container .tab-strip');
+      var tabStrip = document.querySelector(
+        ".tabs-left #tabs-tabbar-container .tab-strip"
+      );
       if (tabStrip) {
-        button.addEventListener('click', function () {
-          var isEnabled = tabStrip.classList.toggle('expandable');
+        button.addEventListener("click", function () {
+          var isEnabled = tabStrip.classList.toggle("expandable");
           // Optionally, update button appearance
-          button.classList.toggle('active', isEnabled);
+          button.classList.toggle("active", isEnabled);
         });
       }
+      observer.disconnect(); // Stop observing once we find the element and apply the border
     }
-  }, 1234);
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 };
