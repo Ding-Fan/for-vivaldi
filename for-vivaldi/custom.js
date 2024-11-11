@@ -21,11 +21,11 @@ window.onload = function () {
       var iconSpan = document.createElement("span");
       iconSpan.className = "button-icon";
       iconSpan.innerHTML = `
-        <svg width="16" height="16" viewBox="0 0 16 16">
-          <!-- Example icon: a double arrow -->
-          <path d="M4 8 L8 4 L8 7 L12 7 L12 9 L8 9 L8 12 Z" fill="currentColor"></path>
-        </svg>
-      `;
+          <svg width="16" height="16" viewBox="0 0 16 16">
+            <!-- Example icon: a double arrow -->
+            <path d="M4 8 L8 4 L8 7 L12 7 L12 9 L8 9 L8 12 Z" fill="currentColor"></path>
+          </svg>
+        `;
 
       // Append the icon to the button
       button.appendChild(iconSpan);
@@ -39,13 +39,11 @@ window.onload = function () {
         workspacesToolbar
       );
 
-      // Add event listener to the button to toggle the 'expandable' class
-      var tabStrip = document.querySelector(
-        ".tabs-left #tabs-tabbar-container .tab-strip"
-      );
-      if (tabStrip) {
+      const tabsContainer = document.querySelector("#tabs-container");
+
+      if (tabsContainer) {
         button.addEventListener("click", function () {
-          var isEnabled = tabStrip.classList.toggle("expandable");
+          var isEnabled = tabsContainer.classList.toggle("expandable");
           // Optionally, update button appearance
           button.classList.toggle("active", isEnabled);
         });
